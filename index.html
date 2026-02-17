@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYU - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Noto+Serif+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-color: #050505;
+            --text-color: #e0e0e0;
+            --accent-color: #ffffff;
+            --nav-width: 280px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            letter-spacing: 0.05em;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Noto Serif JP', serif;
+            color: var(--accent-color);
+            font-weight: 300;
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease, opacity 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            opacity: 0.7;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: var(--nav-width);
+            position: fixed;
+            height: 100vh;
+            border-right: 1px solid #222;
+            padding: 50px 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        nav h1 {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 1.2rem;
+        }
+
+        nav ul li a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+
+        nav ul li a.active {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* Main Content */
+        main {
+            margin-left: var(--nav-width);
+            padding: 80px 10vw;
+            width: calc(100% - var(--nav-width));
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .page-section {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .page-section.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Home Section Specifics */
+        #home .hero-text {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 2rem;
+            line-height: 2;
+            margin-bottom: 3rem;
+        }
+        
+        #home img {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 4px;
+            filter: grayscale(100%);
+            transition: filter 0.5s ease;
+        }
+
+        #home img:hover {
+            filter: grayscale(0%);
+        }
+
+        /* Typography within content */
+        .content-block {
+            margin-bottom: 4rem;
+        }
+
+        .content-block h2 {
+            font-size: 1.8rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .content-block h3 {
+            font-size: 1.2rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #555;
+            padding-left: 10px;
+        }
+
+        p, li {
+            font-size: 0.95rem;
+            color: #bbb;
+        }
+
+        /* Grid Layouts for Art, Music, Instruments */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 2rem;
+        }
+
+        .card img, .card video {
+            width: 100%;
+            height: auto;
+            border: 1px solid #333;
+            margin-bottom: 1rem;
+        }
+
+        .math-block {
+            background: #111;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* Social Links */
+        .social-links {
+            font-size: 2rem;
+            display: flex;
+            gap: 20px;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            nav {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #222;
+                padding: 30px 20px;
+            }
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 40px 20px;
+            }
+            #home .hero-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <nav>
+        <h1>RYU</h1>
+        <ul>
+            <li><a onclick="showPage('home')" id="link-home" class="active">Home</a></li>
+            <li><a onclick="showPage('about')" id="link-about">About</a></li>
+            <li><a onclick="showPage('academics')" id="link-academics">Academics</a></li>
+            <li><a onclick="showPage('art')" id="link-art">Art</a></li>
+            <li><a onclick="showPage('music')" id="link-music">Music</a></li>
+            <li><a onclick="showPage('instruments')" id="link-instruments">Instruments</a></li>
+            <li><a onclick="showPage('archive')" id="link-archive">Public Archive</a></li>
+            <li><a onclick="showPage('contact')" id="link-contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="home" class="page-section active">
+            <div class="hero-text">
+                数理と音響，知覚の越境<br>
+                抽象と物質<br>
+                論理と芸術，イデアへの憧憬
+            </div>
+            <img src="pro.jpg" alt="Profile Picture" onerror="this.src='https://via.placeholder.com/400x400/111/fff?text=Profile+Image'">
+        </section>
+
+        <section id="about" class="page-section">
+            <div class="content-block">
+                <h2>About Me</h2>
+                <p>2007年生まれ.<br>
+                幼少期より数学及び音楽（ピアノ、打楽器、作編曲）に強い興味を抱き、現在は両者の関係性に着目し、数的アルゴリズムによる作曲や、数学への聴覚的アプローチの導入など、両者を統合したインタラクティブな表現方法を追求。<br>
+                また、自身の研究知見を楽器設計に応用し、デザイン、ブランディング、演奏までを一貫して行う。(イタリア国際打楽器コンクール最高位ほか)<br>
+                そして、自身の経験から日本におけるギフテッド教育およびSTEAM教育にも注目し、学問や芸術の枠にとらわれない多様で創造的な教育像を模索。<br>
+                関心領域は、物理学、トポロジー、楽器デザイン、AI、プログラミングから、油絵、デザイン、俳句、ルービックキューブなど。<br>
+                学問・芸術・ものづくりの境界を越え、数理的思考と感性の調和から、新たな価値と表現のかたちの創造することが興味の中心。</p>
+                <ul>
+                    <li><strong>年齢：</strong>18歳</li>
+                    <li><strong>学部：</strong>経済学部1年</li>
+                    <li><strong>興味:</strong> 数理音楽学 / 数学 / 音楽 / 物理学 / アルゴリズミック作曲 / AI / プログラミング / 絵画 / デザイン / 俳句 / ルービックキューブ / ギフテッド教育 / STEM教育 / 機械学習 / 楽器設計 / SNS運用</li>
+                    <li><strong>研究テーマ：</strong>数理音楽学 / アルゴリズミック作曲 / 音響物理学 / 解析的数論 / AI・機械学習 / ソニフィケーション / ζ関数 / 素数 / STEAM・ギフテッド教育</li>
+                </ul>
+
+                <h3>Career</h3>
+                <ul>
+                    <li><strong>2025年</strong> RYU Percussion 代表・プロデューサー</li>
+                    <li><strong>2026年</strong> steAm Inc. (カリキュラム開発、プログラム開発、広報業務全般,イベントサポート)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="academics" class="page-section">
+            <div class="content-block">
+                <h2>Academics</h2>
+                <p>主に、数理構造と音響・知覚との対応関係を主題として、解析的数論、確率モデル、音響物理学を基盤に、抽象的数学構造を聴覚的・物理的現象へと写像する理論と実装を研究しています。</p>
+                <p>主な関心領域は、</p>
+                <ul>
+                    <li>関数およびその解の分布のソニフィケーション</li>
+                    <li>確率過程・群論に基づくアルゴリズミック作曲</li>
+                    <li>理論的合理性に基づく楽器設計</li>
+                </ul>
+                <p>です。理論構築から数値実装、実験的検証、応用設計までを一貫して行い、数理的思考と感性の接点における新たな研究方法論の確立を目指しています。</p>
+
+                <h3>1. Statistical Sonification of Spectral Rigidity in the Riemann Zeta Zeros</h3>
+                <p>― A Psychoacoustically Grounded Framework for Real-Time Structural Monitoring ― <br>
+                <a href="paper1.pdf" target="_blank">[📄 Download PDF]</a></p>
+                
+                <h4>1. 研究背景</h4>
+                <p>リーマンゼータ関数の非自明零点の統計的性質は、モンゴメリのペア相関予想およびその後の数値的検証により、Gaussian Unitary Ensemble (GUE) の固有値統計と一致することが知られている。この対応の本質は、数列が示すスペクトル剛性（spectral rigidity）、すなわち長距離相関構造の存在にある。</p>
+                <p>GUEでは数分散 \(\Sigma^2(L)\) が対数的抑制を示す一方、ポアソン過程では線形成長を示す。この差異は普遍性クラスの識別において本質的である。<br>
+                しかし、零点を音響化する従来研究は、Michael Berry による「auditory complementarity」によって理論的制約を受けてきた。すなわち、素数位置の時間的分解能と、零点周波数の調和的知覚を単一信号で同時実現することは実質的に不可能とされる。本研究はこの制約を直接的に解決するのではなく、観測対象を「微視的座標」から「巨視的統計量」へと再定義することで回避する。</p>
+
+                <h4>2. 理論的枠組み</h4>
+                <p>本研究の核心は、以下の階層的写像にある：<br>
+                零点列 \(\{\gamma_n\}\) → 正規化間隔列 \(\{s_n\}\) → 連続制御信号 \(S(t)\) → FM合成音響信号 \(y(t)\) → スペクトルエントロピー \(H(t)\)</p>
+                <p>ここで重要なのは、位相再構成ではなく、間隔統計の変動構造を聴覚的粗さへ写像している点である。FM合成設計は以下の理論的要請を満たすよう構成した：<br>
+                GUE状態（\(\langle s \rangle \approx 1\)）では変調比 \(R \approx 2\) となり、倍音整列が成立。剛性崩壊時（\(S \neq 1\)）には非整数倍音が生成され、臨界帯域内干渉が増大。粗さの増加は Plomp–Levelt の臨界帯域理論および Sethares の不協和モデルと整合的である。したがって、本手法は数学的秩序（長距離相関）を物理的干渉構造へ変換する。</p>
+
+                <h4>3. 実験設計および検証</h4>
+                <ul>
+                    <li><strong>3.1 データ:</strong> GUEランダム行列（\(N=2000\), bulk抽出）、ポアソン間隔分布、Andrew Odlyzkoによる高精度ゼータ零点データ</li>
+                    <li><strong>3.2 特徴量:</strong> 平均スペクトルエントロピー、制御信号分散</li>
+                    <li><strong>3.3 分類:</strong> 線形SVM（\(C=1.0\)）、100回モンテカルロ試行 + stratified 10-fold CV</li>
+                </ul>
+
+                <h4>4. 結果</h4>
+                <ul>
+                    <li>F1-score = 0.9998 ± 0.0001 (95% CI: [0.9996, 1.0000])</li>
+                    <li>Riemann零点とGUE理論に有意差なし</li>
+                    <li>リアルタイム異常検知: 聴覚法 0.18 ± 0.03 秒 / 可視バッチ法 2.40 ± 0.15 秒 (約13倍高速 \(p < 0.001\))</li>
+                    <li>感度解析: 混合モデル \(s_{mix} = (1-\alpha)s_{GUE} + \alpha s_{Poi}\) において検出閾値 \(\alpha \approx 0.4\) (部分的剛性崩壊にも感度を持つことを示す)</li>
+                </ul>
+
+                <h4>5. 理論的含意</h4>
+                <p>complementarity constraint は phase-level reconstruction に対する制約であり、statistical observables には適用されない。数学的秩序 → 臨界帯域内干渉構造という物理翻訳は、単なる比喩ではなくエネルギー分布の再配置として厳密に定義可能。本手法は「聴覚化」ではなく「統計的診断装置」として位置付けられる。</p>
+
+                <hr style="border: 0; border-bottom: 1px solid #333; margin: 40px 0;">
+
+                <h3>2. Quantitative Analysis of Constituent Component Effects on Snare Drum Acoustics</h3>
+                <p><a href="paper2.pdf" target="_blank">[📄 Download PDF]</a></p>
+
+                <h4>1. 研究目的</h4>
+                <p>スネアドラム音響特性を、構成要素（ワイヤー・スティック・スタンド）の多因子相互作用として統計的に分解する。従来研究は単一要素の物理モデルに集中しており、多因子実験に基づく包括的定量分析は存在しなかった。</p>
+
+                <h4>2. 方法論</h4>
+                <ul>
+                    <li><strong>2.1 実験設計:</strong> 三元配置完全要因実験（>300サンプル）</li>
+                    <li><strong>2.2 音響指標:</strong> Zero Crossing Rate, Spectral Centroid, Spectral Bandwidth, Spectral Rolloff, RMS Energy, Attack Time, Decay Time</li>
+                    <li><strong>2.3 統計解析:</strong> Three-way ANOVA（\(\eta^2\)算出）、PCA（累積寄与率 69.4%）、Pearson相関、交差検証 \(R^2 = 0.686 \pm 0.010\)</li>
+                </ul>
+
+                <h4>3. 主結果</h4>
+                <ul>
+                    <li><strong>(1) ワイヤー効果:</strong> \(\eta^2 = 0.22\)（最大寄与）。コイル型は有意に高いスペクトル重心。</li>
+                    <li><strong>(2) スタンド効果:</strong> 懸架型はディケイ時間を有意に延長。</li>
+                    <li><strong>(3) スティック効果:</strong> 材質密度およびチップ形状がアタック特性に影響。</li>
+                </ul>
+
+                <h4>4. 理論的意義</h4>
+                <p>本研究は、経験則中心であった楽器設計領域を効果量ベースの定量モデルへ拡張した点に意義がある。単なる統計比較ではなく、物理的振動挙動とスペクトル指標の橋渡しを行っている。</p>
+            </div>
+        </section>
+
+        <section id="art" class="page-section">
+            <div class="content-block">
+                <h2>Art</h2>
+                
+                <div class="grid-container">
+                    <div class="card">
+                        <img src="ma1.jpg" alt="E8 Root System" onerror="this.src='https://via.placeholder.com/600x400/111/fff?text=ma1.jpg'">
+                        <h3>1. \(E_8\) Root System: Projection onto the Coxeter Plane</h3>
+                        <p><strong>【タイトル：\(E_8\)ルート系：コクセター平面への射影】</strong></p>
+                        <p><strong>概要:</strong> 例外型単純リー環 \(E_8\) のルート系（240個のベクトル）を、8次元ユークリッド空間からコクセター平面へ線形射影した幾何学的可視化。</p>
+                        <p><strong>数学的詳解:</strong> 本作品は、リー群論における最も複雑かつ美しい構造の一つである \(E_8\) 格子のルート系を可視化したものである。\(E_8\) のルート系 \(\Phi\) は、\(\mathbb{R}^8\) におけるノルムの二乗が2である240個のベクトルで構成され、その対称性は \(E_8\) ウェイル群（位数 696,729,600）によって支配される。<br>
+                        ここでは、コクセター元 \(w\) の固有平面のうち、固有値 \(\exp(2\pi i/h)\)（\(h=30\) はコクセター数）に対応する「コクセター平面」への射影を行っている。この射影により、8次元空間での高度な対称性が2次元平面上の30回回転対称性として現れる。エッジの接続は、ルート間の最小ユークリッド距離（\(\sqrt{2}\)）に基づいて定義されており、高次元空間における稠密充填構造の骨格を浮き彫りにしている。</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="ma2.jpg" alt="600-Cell" onerror="this.src='https://via.placeholder.com/600x400/111/fff?text=ma2.jpg'">
+                        <h3>2. The 600-Cell: Four-Dimensional Regular Polytope and \(H_4\) Symmetry</h3>
+                        <p><strong>【タイトル：600胞体：4次元正多胞体と \(H_4\) 対称性】</strong></p>
+                        <p><strong>概要:</strong> 4次元空間における正多胞体「600胞体（Hexacosichoron）」の、黄金比に基づく構造保存射影。</p>
+                        <p><strong>数学的詳解:</strong> 600胞体は、120個の頂点と720個の正四面体胞を持つ、4次元における正二十面体の類似体である。その対称群は、非結晶学的コクセター群 \(H_4\) であり、その構造には至る所に黄金比 \(\phi = (1+\sqrt{5})/2\) が組み込まれている。<br>
+                        本可視化では、4次元座標を特定の回転行列を用いて2次元に射影しているが、これは準結晶（Quasicrystal）の理論において高次元格子からペンローズ・タイルを切り出す手法と数学的に等価である。各頂点は、隣接する頂点と黄金比の関係にある距離で結ばれており、射影面において自己相似的な五次対称性を有するマンダラ状のパターンを創発させている。これは、高次元幾何学が低次元のトポロジーに課す制約を視覚的に表現したものである。</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="ma3.jpg" alt="10D Hypercube" onerror="this.src='https://via.placeholder.com/600x400/111/fff?text=ma3.jpg'">
+                        <h3>3. 10D Hypercube: High-Dimensional Orthographic Projection and Petrie Polygons</h3>
+                        <p><strong>【タイトル：10次元超立方体：高次元正射影とペトリー多角形】</strong></p>
+                        <p><strong>概要:</strong> 10次元単位超立方体（\(10\)-cube）の全 \(1024\) 頂点と \(5120\) 本のエッジによる正射影（Orthographic Projection）。</p>
+                        <p><strong>数学的詳解:</strong> \(n\) 次元超立方体（Measure Polytope）の2次元への射影において、最も対称性が高い視点は、全頂点がひとつの正多角形の外周および内部に収まる「ペトリー多角形」への射影である。本作品では10次元空間の基底を \(\mathbb{R}^2\) 上の \(20\) 角形の頂点へとマッピングすることで、この対称性を実現している。<br>
+                        中心部で観察される複雑なモアレ（干渉パターン）は、高次元空間においてハミング距離（Hamming distance）が1である頂点同士の接続が重なり合った結果生じるものである。これは高次元情報の圧縮プロセスにおける情報の保存と干渉を幾何学的に記述したものであり、グラフ理論における「ハイパーキューブ・グラフ \(Q_{10}\)」のスペクトル特性を視覚化した計算機幾何学の実証である。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="music" class="page-section">
+            <div class="content-block">
+                <h2>Music</h2>
+                
+                <h3>Philosophy</h3>
+                <p>数学的知性と芸術的感性の統合。 数理アルゴリズムによる作曲、音響物理学に基づく楽器設計、そして演奏。 学問と芸術の境界を越え、数理的思考から新たな表現の形を創造する。</p>
+
+                <h3>Profiles</h3>
+                <ul>
+                    <li><strong>Performer:</strong> 打楽器奏者・ピアニスト。イタリア国際打楽器コンクール最高位。</li>
+                    <li><strong>Composer:</strong> 解析的数論や確率統計モデル（クセナキス的手法等）を用いたアルゴリズミック作曲。</li>
+                    <li><strong>Designer:</strong> 「RYU Percussion」代表。音響物理の知見を定量的に反映した楽器設計・制作。</li>
+                    <li><strong>Researcher:</strong> 数理音楽学、リーマンゼータ関数のソニフィケーション（可聴化）を研究。</li>
+                </ul>
+
+                <h3>Selected Projects</h3>
+                <ul>
+                    <li><strong>RYU Percussion:</strong> 音響物理学の知見に基づく、スネアドラムを中心とした打楽器ブランド。 設計・製作・演奏・ブランディングまでを一貫してプロデュースする。</li>
+                    <li><strong>Sonification of Analytic Number Theory:</strong> リーマンゼータ関数の零点分布などの数論的構造を、音響パラメータへ変換。 数理構造の知覚における新たなアプローチの探求。</li>
+                </ul>
+
+                <h3>Video Archive</h3>
+                <div class="grid-container">
+                    <div class="card">
+                        <video controls poster="https://via.placeholder.com/600x338/111/fff?text=Video+Thumbnail">
+                            <source src="your_video_file1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="card">
+                        <video controls poster="https://via.placeholder.com/600x338/111/fff?text=Video+Thumbnail">
+                            <source src="your_video_file2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="instruments" class="page-section">
+            <div class="content-block">
+                <h2>Instruments</h2>
+                
+                <div class="card" style="margin-bottom: 3rem;">
+                    <img src="snare.jpg" alt="The Full-Wooden Snare" onerror="this.src='https://via.placeholder.com/800x400/111/fff?text=The+Full-Wooden+Snare'">
+                    <h3>The Full-Wooden Snare</h3>
+                    <p>100% Wood. 100% Handmade. 音響物理学への深い洞察に基づき、シェルからラグ、フープに至るすべてのパーツを木材で設計。金属パーツによる干渉を排除し、有機的で純粋な響きを追求した一台。</p>
+                    <ul>
+                        <li><strong>Dimensions:</strong> 14" x 5"</li>
+                        <li><strong>Shell:</strong> 6mm Beech plywood</li>
+                        <li><strong>Hoops:</strong> Custom-made Nut wood</li>
+                        <li><strong>Lugs:</strong> Custom-made Padauk</li>
+                        <li><strong>Snare Wires:</strong> Dresdner-style</li>
+                    </ul>
+                </div>
+
+                <div class="grid-container">
+                    <div class="card">
+                        <img src="stand1.jpg" alt="Snare Stand I" onerror="this.src='https://via.placeholder.com/600x400/111/fff?text=Snare+Stand+I'">
+                        <h3>Snare Stand I: Suspension Model</h3>
+                        <p>Inspired by Vintage Military Snares. クランプによる締め付けを排除し、紐で「吊るす」構造を採用。シェルの振動を一切殺さない、極めてオープンで自由なサウンドを実現。</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="stand2.jpg" alt="Snare Stand II" onerror="this.src='https://via.placeholder.com/600x400/111/fff?text=Snare+Stand+II'">
+                        <h3>Snare Stand II: Quadrilateral Model</h3>
+                        <p>Stability and Portability. 木製4本構造による、圧倒的な安定感と軽量化の両立。</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem; padding: 2rem; border-left: 2px solid #555; font-style: italic;">
+                    <p>„Die kleine Trommel soll frei klingen, und nicht nur geschlagen werden.“ (Richard Hochrainer)<br>
+                    — 小太鼓は単に打たれるものではなく、自由に響くべきである。</p>
+                    <p>スタンドも楽器の一部であるという思想。響きを「固定」から解放するための、物理学的アプローチ。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="archive" class="page-section">
+            <div class="content-block">
+                <h2>Public Archive</h2>
+                
+                <h3>Scores for Evolution</h3>
+                <p>自身の研究プロセスから生まれた数理的作曲、および打楽器・ピアノのための編曲作品の一部を、無償で公開しています。演奏、研究、あるいは新たな創作の起点として。</p>
+                
+                <ul>
+                    <li><strong>Algorithmic Compositions:</strong> 確率過程や数論に基づくスコア。</li>
+                    <li><strong>Percussion Solos:</strong> RYU Percussionの性能を最大限に引き出すための作品群。</li>
+                    <li><strong>Arrangements:</strong> クラシックから現代音楽まで、独自の視点による再構築。</li>
+                </ul>
+
+                <p style="margin-top: 2rem;">
+                    <a href="scores.pdf" target="_blank" style="text-decoration: underline;">[📄 Download Scores (PDF)]</a>
+                </p>
+            </div>
+        </section>
+
+        <section id="contact" class="page-section">
+            <div class="content-block">
+                <h2>Contact</h2>
+                <p>研究に関するご質問やご指摘、音楽活動などにご興味がございましたら、お気軽にご連絡ください。</p>
+                
+                <div class="social-links">
+                    <a href="https://www.instagram.com/ryu_percussion/" target="_blank" rel="noopener noreferrer" title="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="mailto:ryu.percussion.contact@gmail.com" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    function showPage(pageId) {
+        // 全セクションの非表示処理（フェードアウト）
+        const sections = document.querySelectorAll('.page-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+            setTimeout(() => {
+                if (!section.classList.contains('active')) {
+                    section.style.display = 'none';
+                }
+            }, 500); // CSSのtransitionと合わせる
+        });
+
+        // 対象セクションの表示処理（フェードイン）
+        const targetSection = document.getElementById(pageId);
+        setTimeout(() => {
+            targetSection.style.display = 'block';
+            // 少し遅延させてopacityとtransformを適用
+            setTimeout(() => {
+                targetSection.classList.add('active');
+            }, 50);
+        }, 500);
+
+        // ナビゲーションのアクティブ状態更新
+        const links = document.querySelectorAll('nav ul li a');
+        links.forEach(link => link.classList.remove('active'));
+        document.getElementById('link-' + pageId).classList.add('active');
+        
+        // スマホなどの場合、ページ上部へスクロール
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
