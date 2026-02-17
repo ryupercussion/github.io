@@ -109,7 +109,7 @@
             background: none;
             border: 1px solid #333;
             color: #666;
-            padding: 4px 8px;
+            padding: 4px 12px;
             cursor: pointer;
             font-family: var(--font-en);
             font-size: 0.9rem;
@@ -168,11 +168,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* === Bilingual Layout === */
+        /* === Single Column Layout (JP/EN Toggled) === */
         .bilingual-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6vw;
+            grid-template-columns: 1fr;
+            max-width: 900px;
+            gap: 2rem;
             margin-bottom: 8rem;
             position: relative;
             transition: all 0.5s ease;
@@ -190,7 +191,7 @@
             color: var(--text-en);
             text-align: justify;
             position: relative;
-            padding-top: 3rem;
+            padding-top: 3rem; /* Space for the number */
         }
 
         .number {
@@ -214,13 +215,7 @@
 
         /* === Language View Logics === */
         body.lang-ja .col-en { display: none; }
-        body.lang-ja .bilingual-row { grid-template-columns: 1fr; max-width: 900px; }
-        
         body.lang-en .col-ja { display: none; }
-        body.lang-en .bilingual-row { grid-template-columns: 1fr; max-width: 900px; }
-        
-        body.lang-both .col-ja { display: block; }
-        body.lang-both .col-en { display: block; }
 
         /* === Image & Assets === */
         .hero-img {
@@ -280,10 +275,6 @@
 
         /* Mobile Adjustments */
         @media (max-width: 1024px) {
-            .bilingual-row, body.lang-ja .bilingual-row, body.lang-en .bilingual-row {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
             .col-en { padding-top: 1rem; }
             .number { position: static; display: block; margin-bottom: 1rem; }
             nav { width: 100%; height: auto; position: relative; padding: 20px; border-bottom: 1px solid #222; display: block; }
@@ -294,14 +285,13 @@
         }
     </style>
 </head>
-<body class="lang-both">
+<body class="lang-ja">
 
     <nav>
         <h1>RYU</h1>
         <div class="lang-toggle">
-            <button onclick="setLang('ja')" id="btn-ja">JP</button>
+            <button onclick="setLang('ja')" id="btn-ja" class="active">JP</button>
             <button onclick="setLang('en')" id="btn-en">EN</button>
-            <button onclick="setLang('both')" id="btn-both" class="active">JP/EN</button>
         </div>
         <ul>
             <li><a onclick="showPage('home')" id="link-home" class="active">Home</a></li>
