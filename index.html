@@ -1263,6 +1263,42 @@
                 font-weight: 300;
             }
         }
+        /* =====================================================
+           スマホ版（モバイル）専用の追加調整
+        ===================================================== */
+       @media (max-width: 768px) {
+            /* 1. Homeのキャッチフレーズを中央に固定し、アニメーションを無効化 */
+            .home-text {
+                left: 50% !important;
+                top: 50% !important; /* 画面の上下中央に配置 */
+                bottom: auto !important;
+                transform: translate(-50%, -50%) !important; /* 正確な中央揃え */
+                text-align: center;
+                width: 90%;
+                max-width: none;
+                z-index: 10;
+                
+                /* アニメーションを無効化 */
+                animation: none !important; 
+                opacity: 1 !important;
+            }
+
+            /* 2. Exploreの文字とアイコンを並べる */
+            .hamburger {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .explore-text {
+                font-family: var(--font-display);
+                font-size: 0.75rem;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                font-weight: 300;
+            }
+        }
+        
     </style>
 </head>
 <body class="lang-ja">
