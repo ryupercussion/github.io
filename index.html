@@ -1235,6 +1235,34 @@
             .section-title { font-size: 1.3rem; }
             .md-h1 { font-size: 1.15rem; }
         }
+
+        /* =====================================================
+           スマホ版（モバイル）専用の追加調整
+        ===================================================== */
+        @media (max-width: 768px) {
+            /* 1. Homeのキャッチフレーズを中央配置にし、画面外に見切れるのを防ぐ */
+            .home-text {
+                left: 50%;
+                transform: translateX(-50%);
+                text-align: center;
+                width: 90%; /* 左右に少し余白を持たせる */
+            }
+
+            /* 2. ハンバーガーメニューと「Explore」の文字を綺麗に横並びにする */
+            .hamburger {
+                display: flex;
+                align-items: center;
+                gap: 8px; /* アイコンと文字の隙間 */
+            }
+
+            .explore-text {
+                font-family: var(--font-display);
+                font-size: 0.75rem;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                font-weight: 300;
+            }
+        }
     </style>
 </head>
 <body class="lang-ja">
@@ -1275,6 +1303,7 @@
             <span class="brand-full-m">Ryunosuke Takada</span>
         </div>
         <button class="hamburger" onclick="openMobileMenu()" aria-label="Menu">
+           <span class="explore-text">Explore</span>
             <i class="fas fa-bars"></i>
         </button>
     </div>
